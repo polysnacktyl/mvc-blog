@@ -1,25 +1,25 @@
 const express = require('express');
 const path = require('path');
+const exphbs = require('express-handlebars');
+
 const Sequelize = require('sequelize');
-
-
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-const sequelize = new Sequelize(
-    process.env.DB_NAME,
-    process.env.DB_USER,
-    process.env.DB_PW,
-    {
-      host: 'localhost',
-      dialect: 'mysql',
-      port: 3001,
-    },
-  );
+const sequelize = require('./config/connection');
+const hbs = exphbs.create({});
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.engine('handlebars', hbs.engine);
+app.set('view engine', 'handlebars');
 
-app.listen(PORT, () => {
-  console.log('Server listening on: http://localhost:' + PORT);
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+app.use(express.static(path.join(__dirname, '../public')));
+
+app.use(require('./controllers'));
+
+sequelize.sync({ force: false }).then(() => {
+  app.listen(PORT, () => console.log('Now listening'));
 });

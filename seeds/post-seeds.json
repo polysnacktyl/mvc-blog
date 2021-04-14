@@ -1,0 +1,13 @@
+[
+{
+    "post_title": "test title",
+    "post_body": "test bod",
+    "post_author": "yes"
+  },
+  {
+    "post_title": "test title2",
+    "post_body": "test bod2",
+    "post_author": "no"  
+  }
+]
+
