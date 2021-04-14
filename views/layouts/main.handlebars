@@ -1,0 +1,14 @@
+{{#each post as |post|}}
+    <div class="post col-md-5">
+      <p>
+        {{post.id}}.
+        {{post.post_title}}
+      </p>
+    </div>
+    <div class="col-md-7">
+      <p>
+        author
+        {{post.author_name}}
+      </p>
+    </div>
+  {{/each}}
